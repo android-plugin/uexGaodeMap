@@ -7,7 +7,15 @@ import com.amap.api.services.geocoder.RegeocodeResult;
 import com.amap.api.services.poisearch.PoiItemDetail;
 import com.amap.api.services.poisearch.PoiResult;
 
+import org.zywx.wbpalmstar.plugin.uexgaodemap.VO.AvailableCityVO;
+import org.zywx.wbpalmstar.plugin.uexgaodemap.VO.AvailableProvinceVO;
+import org.zywx.wbpalmstar.plugin.uexgaodemap.VO.DownloadItemVO;
+import org.zywx.wbpalmstar.plugin.uexgaodemap.VO.DownloadResultVO;
+import org.zywx.wbpalmstar.plugin.uexgaodemap.VO.DownloadStatusVO;
+import org.zywx.wbpalmstar.plugin.uexgaodemap.VO.UpdateResultVO;
+
 import java.io.Serializable;
+import java.util.List;
 
 public interface OnCallBackListener extends Serializable{
     public void onMapLoaded();
@@ -21,4 +29,15 @@ public interface OnCallBackListener extends Serializable{
     public void cbReverseGeocode(RegeocodeResult regeocodeResult, int errorCode);
     public void cbPoiSearch(PoiResult result, int errorCode);
     public void cbPoiSearchDetail(PoiItemDetail result, int errorCode);
+    public void cbDownload(DownloadResultVO data);
+    public void onDownload(DownloadStatusVO data);
+    public void cbDelete(DownloadResultVO data);
+
+    public void cbGetDownloadingList(List<DownloadItemVO> data);
+    public void cbGetDownloadList(List<DownloadItemVO> data);
+    public void cbGetAvailableCityList(List<AvailableCityVO> data);
+
+    public void cbGetAvailableProvinceList(List<AvailableProvinceVO> data);
+
+    public void cbIsUpdate(UpdateResultVO data);
 }

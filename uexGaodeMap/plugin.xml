@@ -45,5 +45,15 @@
         <method name="removeOverlays"/>
 
         <method name="clear"/>
+
+        <method name="download"/>
+        <method name="pause"/>
+        <method name="restart"/>
+        <method name="getAvailableCityList"/>
+        <method name="getAvailableProvinceList"/>
+        <method name="getDownloadList"/>
+        <method name="getDownloadingList"/>
+        <method name="isUpdate"/>
+        <method name="delete"/>
     </plugin>
 </uexplugins>

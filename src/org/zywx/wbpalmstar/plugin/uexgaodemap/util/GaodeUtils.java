@@ -3,6 +3,7 @@ package org.zywx.wbpalmstar.plugin.uexgaodemap.util;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.webkit.URLUtil;
 
 import com.amap.api.maps.model.LatLng;
@@ -16,10 +17,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.zywx.wbpalmstar.base.BUtility;
+import org.zywx.wbpalmstar.engine.EBrowserView;
 import org.zywx.wbpalmstar.plugin.uexgaodemap.JsConst;
 import org.zywx.wbpalmstar.plugin.uexgaodemap.bean.MarkerBean;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -72,24 +75,7 @@ public class GaodeUtils {
             if (URLUtil.isNetworkUrl(imgUrl)) {
                 bitmap = downloadImageFromNetwork(imgUrl);
             } else {
-                if (imgUrl.startsWith(BUtility.F_Widget_RES_SCHEMA)) {
-                    is = BUtility.getInputStreamByResPath(ctx, imgUrl);
-                    bitmap = BitmapFactory.decodeStream(is);
-                } else if (imgUrl.startsWith(BUtility.F_FILE_SCHEMA)) {
-                    imgUrl = imgUrl.replace(BUtility.F_FILE_SCHEMA, "");
-                    bitmap = BitmapFactory.decodeFile(imgUrl);
-                } else if (imgUrl.startsWith(BUtility.F_Widget_RES_path)) {
-                    try {
-                        is = ctx.getAssets().open(imgUrl);
-                        if (is != null) {
-                            bitmap = BitmapFactory.decodeStream(is);
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    bitmap = BitmapFactory.decodeFile(imgUrl);
-                }
+                bitmap = BUtility.getLocalImg(ctx,imgUrl);
             }
         } catch (OutOfMemoryError e) {
             e.printStackTrace();
@@ -134,12 +120,12 @@ public class GaodeUtils {
         return data;
     }
 
-    public static List<MarkerBean> getAddMarkersData(String json) {
+    public static List<MarkerBean> getAddMarkersData(EBrowserView ebrw, String json) {
         List<MarkerBean> list = new ArrayList<MarkerBean>();
         try {
             JSONArray jsonArray = new JSONArray(json);
             for (int i = 0; i < jsonArray.length(); i++){
-                MarkerBean bean = getMarkerData(jsonArray.getString(i));
+                MarkerBean bean = getMarkerData(ebrw, jsonArray.getString(i));
                 if (bean != null && bean.getPosition() != null){
                     list.add(bean);
                 }
@@ -151,7 +137,7 @@ public class GaodeUtils {
         return list;
     }
 
-    public static MarkerBean getMarkerData(String json) {
+    public static MarkerBean getMarkerData(EBrowserView ebrw, String json) {
         MarkerBean bean = new MarkerBean();
         try {
             JSONObject object = new JSONObject(json);
@@ -164,7 +150,11 @@ public class GaodeUtils {
             }
             if (object.has(JsConst.ICON)){
                 String icon = object.getString(JsConst.ICON);
-                bean.setIcon(icon);
+                String path = BUtility.makeRealPath(
+                        BUtility.makeUrl(ebrw.getCurrentUrl(), icon),
+                        ebrw.getCurrentWidget().m_widgetPath,
+                        ebrw.getCurrentWidget().m_wgtType);
+                bean.setIcon(path);
             }
             if (object.has(JsConst.BUBBLE)){
                 try {
@@ -200,4 +190,21 @@ public class GaodeUtils {
         return bean;
     }
 
+    public static String getCacheDir() {
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            File fExternalStorageDirectory = Environment.getExternalStorageDirectory();
+            File dir = new File(fExternalStorageDirectory,
+                    "/widgetone/offlineMap/gaodemap");
+            boolean result = false;
+            if (!dir.exists()){
+                result = dir.mkdirs();
+            }else {
+                result = true;
+            }
+            if (result) return dir.toString() + File.separator;
+            else return null;
+        } else {
+            return null;
+        }
+    }
 }

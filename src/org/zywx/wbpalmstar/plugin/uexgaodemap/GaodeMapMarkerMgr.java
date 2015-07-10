@@ -2,6 +2,10 @@ package org.zywx.wbpalmstar.plugin.uexgaodemap;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -10,14 +14,14 @@ import com.amap.api.maps.AMap;
 import com.amap.api.maps.AMap.InfoWindowAdapter;
 import com.amap.api.maps.AMap.OnInfoWindowClickListener;
 import com.amap.api.maps.AMap.OnMarkerClickListener;
-import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
-import com.amap.api.maps.model.LatLngBounds;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.zywx.wbpalmstar.base.ACEImageLoader;
 import org.zywx.wbpalmstar.base.cache.ImageLoadTask;
 import org.zywx.wbpalmstar.base.cache.ImageLoadTask$ImageLoadTaskCallback;
 import org.zywx.wbpalmstar.base.cache.ImageLoaderManager;
@@ -33,15 +37,20 @@ import java.util.List;
 public class GaodeMapMarkerMgr extends GaodeMapBaseMgr implements OnMarkerClickListener, OnInfoWindowClickListener, InfoWindowAdapter {
 
     private static final String TAG = "GaodeMapMarkerMgr";
-    private static HashMap<String, Marker> mMarkers = new HashMap<String, Marker>();
+    private static final int MSG_ADD_MARK = 0;
+    private static final String TAG_ID = "id";
+    private HashMap<String, Marker> mMarkers = new HashMap<String, Marker>();
     private ImageLoaderManager manager;
     private List<LatLng> mOverlays;
+    private BaseHandler mHandler;
+
 
     public GaodeMapMarkerMgr(Context cxt, AMap map,
                              OnCallBackListener listener, List<LatLng> markers) {
         super(cxt, map, listener);
         manager = ImageLoaderManager.initImageLoaderManager(mContext);
         this.mOverlays = markers;
+        this.mHandler = new BaseHandler(Looper.getMainLooper());
     }
 
     public void addMarkers(List<MarkerBean> list){
@@ -61,25 +70,69 @@ public class GaodeMapMarkerMgr extends GaodeMapBaseMgr implements OnMarkerClickL
                 }
             }
             if (!TextUtils.isEmpty(bean.getIcon())){
-                manager.asyncLoad(new ImageLoadTask(bean.getIcon()) {
-                    @Override
-                    protected Bitmap doInBackground() {
-                        return GaodeUtils.getImage(mContext, filePath);
-                    }
-                }.addCallback(new ImageLoadTask$ImageLoadTaskCallback() {
-                    public void onImageLoaded(ImageLoadTask task, Bitmap bitmap) {
-                        if (bitmap != null) {
-                            BitmapDescriptor bd = BitmapDescriptorFactory.fromBitmap(bitmap);
-                            option.icon(bd);
-                        }
-                        addMark(bean.getId(), option);
-                    }
-                }));
+//                Bitmap bm = getBitmap(bean.getIcon());
+//                BitmapDescriptor bd = BitmapDescriptorFactory.fromBitmap(bm);
+//                option.icon(bd);
+//                addMark(bean.getId(), option);
+
+                //getBitmap(bean, option);
+                AddMarkImageAsyncTask task = new AddMarkImageAsyncTask(bean, option);
+                task.execute();
             }else{
                 addMark(bean.getId(), option);
             }
         }
     }
+
+    public class BaseHandler extends Handler {
+
+        public BaseHandler(Looper loop) {
+            super(loop);
+        }
+
+        public void handleMessage(Message msg) {
+            if (msg == null) return;
+            switch (msg.what){
+                case MSG_ADD_MARK:
+                    if (msg.getData() != null){
+                        String id = msg.getData().getString(TAG_ID);
+                        MarkerOptions option = (MarkerOptions) msg.obj;
+                        addMark(id, option);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private class AddMarkImageAsyncTask extends AsyncTask<Void, Void, Bitmap>{
+
+        MarkerBean bean;
+        MarkerOptions option;
+
+        public AddMarkImageAsyncTask(MarkerBean data, MarkerOptions option) {
+            this.bean = data;
+            this.option = option;
+        }
+
+        @Override
+        protected Bitmap doInBackground(Void... params) {
+//            ACEImageLoader.getInstance();
+//            return ImageLoader.getInstance().loadImageSync(bean.getIcon());
+            return GaodeUtils.getImage(mContext, bean.getIcon());
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            if (bitmap != null) {
+                BitmapDescriptor bd = BitmapDescriptorFactory.fromBitmap(bitmap);
+                option.icon(bd);
+            }
+            addMark(bean.getId(), option);
+        }
+    }
+
 
     private void addMark(String id, MarkerOptions option) {
         if (option != null && map != null && !mMarkers.containsKey(id)){
@@ -91,7 +144,6 @@ public class GaodeMapMarkerMgr extends GaodeMapBaseMgr implements OnMarkerClickL
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        Log.i(TAG,"onMarkerClick->isShowBubble = " + marker.isInfoWindowShown());
         String id = getMarkerId(marker.getId());
         if (mListener != null){
             mListener.onMarkerClicked(id);
@@ -176,8 +228,6 @@ public class GaodeMapMarkerMgr extends GaodeMapBaseMgr implements OnMarkerClickL
             mListener.onBubbleClicked(id);
         }
     }
-
-
 
     public void removeMarker(String id) {
         if (TextUtils.isEmpty(id)){

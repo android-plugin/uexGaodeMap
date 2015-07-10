@@ -44,7 +44,7 @@ import java.util.List;
 
 public class GaodeMapOverlayMgr extends GaodeMapBaseMgr {
 
-    private static HashMap<String, BaseOverlay> mOverlays = new HashMap<String, BaseOverlay>();
+    private HashMap<String, BaseOverlay> mOverlays = new HashMap<String, BaseOverlay>();
     private ImageLoaderManager manager;
     private List<LatLng> mBoundsOverlays;
 

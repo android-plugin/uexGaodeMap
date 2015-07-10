@@ -85,4 +85,32 @@ public class JsConst {
     public static final String ISSHOWGROUPBUY = "isShowGroupbuy";
     public static final String CALLBACK_POI_SEARCH_DETAIL = "uexGaodeMap.cbPoiSearchDetail";
 
+    public static final String CALLBACK_DOWNLOAD = "uexGaodeMap.cbDownload";
+    public static final String CALLBACK_PAUSE = "uexGaodeMap.cbPause";
+    public static final String CALLBACK_STOP = "uexGaodeMap.cbStop";
+    public static final String CALLBACK_GET_AVAILABLE_CITY_LIST = "uexGaodeMap.cbGetAvailableCityList";
+    public static final String CALLBACK_IS_UPDATE = "uexGaodeMap.cbIsUpdate";
+    public static final int SUCCESS = 0;
+
+    public static final int ERROR_WRONG_CITY_NAME = -1;
+    public static final int ERROR_UNKNOWN = -2;
+    public static final int ERROR_IS_EXIST = -3;
+    public static final String ON_DOWNLOAD = "uexGaodeMap.onDownload";
+    public static final String CALLBACK_DELETE = "uexGaodeMap.cbDelete";
+    public static final int FAILED = 1;
+    public static final String CALLBACK_RESTART = "uexGaodeMap.cbRestart";
+    public static final String CALLBACK_STOP_DOWNLOAD = "uexGaodeMap.cbStopDownload";
+    public static final String CALLBACK_GET_AVAILABLE_PROVINCE_LIST = "uexGaodeMap.cbGetAvailableProvinceList";
+    public static final int TYPE_CITY = 1;
+    public static final int TYPE_PROVINCE = 2;
+    public static final String TAG_CITY = "city";
+    public static final String TAG_PROVINCE = "province";
+    public static final String CALLBACK_GET_DOWNLOAD_LIST = "uexGaodeMap.cbGetDownloadList";
+    public static final String CALLBACK_GET_DOWNLOADING_LIST = "uexGaodeMap.cbGetDownloadingList";
+    public static final int ERROR_IS_DOWNLOAD = -4;
+    public static final int MSG_DOWNLOAD_INIT_START = 0;
+
+    public static final int MSG_DOWNLOAD_CHANGE_STATUS = 1;
+    public static final int MSG_DOWNLOAD_SUCCESS = 2;
+    public static final int MSG_DOWNLOAD_ERROR = 3;
 }

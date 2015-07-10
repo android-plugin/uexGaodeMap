@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <uexplugins>
     <plugin
-        uexName="uexGaodeMap" version="3.0.2" build="2">
-        <info>2:新增显示地图比例尺方法，新增批量删除标注或覆盖物的方法</info>
+        uexName="uexGaodeMap" version="3.0.3" build="3">
+        <info>3:新增离线地图相关方法</info>
+        <bulid>2:新增显示地图比例尺方法，新增批量删除标注或覆盖物的方法</bulid>
         <bulid>1:插件包添加dex文件夹</bulid>
         <bulid>0:高德地图插件</bulid>
     </plugin>

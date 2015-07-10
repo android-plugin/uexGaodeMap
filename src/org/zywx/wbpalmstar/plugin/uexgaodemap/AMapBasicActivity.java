@@ -66,7 +66,6 @@ public class AMapBasicActivity extends Activity implements OnMapLoadedListener,
     private GeocodeSearch geocodeSearch;
     private boolean isShowOverlay = false;
     private List<LatLng> mOverlays;
-    //private LatLngBounds mBounds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,7 +167,11 @@ public class AMapBasicActivity extends Activity implements OnMapLoadedListener,
      */
     @Override
     protected void onDestroy() {
+        if (aMap != null){
+            aMap.clear();
+        }
         overlayMgr.clean();
+        markerMgr.clearAll();
         stopLocation();
         super.onDestroy();
         mapView.onDestroy();
@@ -414,23 +417,28 @@ public class AMapBasicActivity extends Activity implements OnMapLoadedListener,
         @Override
         public void onLocationChanged(AMapLocation aMapLocation) {
             Log.i(TAG, "onLocationChanged");
-            if (aMapLocation != null && aMapLocation.getAMapException().getErrorCode() == 0){
-                switch (type){
-                    case JsConst.SHOW_LOCATION:
-                    case JsConst.CONTINUED:
-                        if (mLocationChangedListener != null) {
-                            mLocationChangedListener.onLocationChanged(aMapLocation);// 显示系统小蓝点
-                        }
-                        if (mListener != null){
-                            mListener.onReceiveLocation(aMapLocation);
-                        }
-                        break;
-                    case JsConst.GET_LOCATION:
-                        if (mListener != null){
-                            mListener.cbGetCurrentLocation(aMapLocation);
-                        }
-                        break;
+            try {
+                if (aMapLocation != null && aMapLocation.getAMapException()!= null
+                && aMapLocation.getAMapException().getErrorCode() == 0){
+                    switch (type){
+                        case JsConst.SHOW_LOCATION:
+                        case JsConst.CONTINUED:
+                            if (mLocationChangedListener != null) {
+                                mLocationChangedListener.onLocationChanged(aMapLocation);// 显示系统小蓝点
+                            }
+                            if (mListener != null){
+                                mListener.onReceiveLocation(aMapLocation);
+                            }
+                            break;
+                        case JsConst.GET_LOCATION:
+                            if (mListener != null){
+                                mListener.cbGetCurrentLocation(aMapLocation);
+                            }
+                            break;
+                    }
                 }
+            } catch (Exception e) {
+                //e.printStackTrace();
             }
         }
 
@@ -483,7 +491,7 @@ public class AMapBasicActivity extends Activity implements OnMapLoadedListener,
     public void setMyLocationEnable(int type) {
         Log.i(TAG, "setMyLocationEnable-type = " + type);
         if (aMap != null){
-            aMap.setMyLocationEnabled(type == JsConst.ENABLE ? true : false);
+            aMap.setMyLocationEnabled(type == JsConst.ENABLE);
             if (type == JsConst.ENABLE){
                 if (mLocationListener == null){
                     mLocationListener = new GaodeLocationListener();
