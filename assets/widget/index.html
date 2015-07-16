@@ -7,285 +7,149 @@
     <link rel="stylesheet" type="text/css" href="css/index.css">
 
     <script type="text/javascript">
-    function open(){
+    function download(){
         var params = {
         };
         var data = JSON.stringify(params);
-        uexGaodeMap.open(data);
+        uexGaodeMap.download(data);
     }
 
-    function close(){
+    function pause(){
         var params = {
         };
         var data = JSON.stringify(params);
-        uexGaodeMap.close(data);
+        uexGaodeMap.pause(data);
     }
 
-    function setMapType(){
+    function restart(){
         var params = {
         };
         var data = JSON.stringify(params);
-        uexGaodeMap.setMapType(data);
+        uexGaodeMap.restart(data);
     }
 
-    function setTrafficEnabled(){
+    function stopDownload(){
         var params = {
         };
         var data = JSON.stringify(params);
-        uexGaodeMap.setTrafficEnabled(data);
+        uexGaodeMap.stopDownload(data);
     }
 
-    function setCenter(){
+    function getAvailableCityList(){
         var params = {
         };
         var data = JSON.stringify(params);
-        uexGaodeMap.setCenter(data);
+        uexGaodeMap.getAvailableCityList(data);
     }
 
-    function setZoomLevel(){
+    function getAvailableProvinceList(){
         var params = {
         };
         var data = JSON.stringify(params);
-        uexGaodeMap.setZoomLevel(data);
+        uexGaodeMap.getAvailableProvinceList(data);
     }
 
-    function zoomIn(){
+    function getDownloadList(){
         var params = {
         };
         var data = JSON.stringify(params);
-        uexGaodeMap.zoomIn(data);
+        uexGaodeMap.getDownloadList(data);
     }
 
-    function zoomOut(){
+    function getDownloadingList(){
         var params = {
         };
         var data = JSON.stringify(params);
-        uexGaodeMap.zoomOut(data);
+        uexGaodeMap.getDownloadingList(data);
     }
 
-    function rotate(){
+    function isUpdate(){
         var params = {
         };
         var data = JSON.stringify(params);
-        uexGaodeMap.rotate(data);
+        uexGaodeMap.isUpdate(data);
     }
 
-    function overlook(){
+    function delete(){
         var params = {
         };
         var data = JSON.stringify(params);
-        uexGaodeMap.overlook(data);
+        uexGaodeMap.delete(data);
     }
 
-    function setZoomEnable(){
+    function getAvailableProvinceList(){
         var params = {
         };
         var data = JSON.stringify(params);
-        uexGaodeMap.setZoomEnable(data);
-    }
-
-    function setRotateEnable(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.setRotateEnable(data);
-    }
-
-    function setCompassEnable(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.setCompassEnable(data);
-    }
-
-    function setScrollEnable(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.setScrollEnable(data);
-    }
-
-    function setOverlookEnable(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.setOverlookEnable(data);
-    }
-
-    function addMarkersOverlay(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.addMarkersOverlay(data);
-    }
-
-    function setMarkerOverlay(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.setMarkerOverlay(data);
-    }
-
-    function showBubble(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.showBubble(data);
-    }
-
-    function hideBubble(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.hideBubble(data);
-    }
-
-    function addPolylineOverlay(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.addPolylineOverlay(data);
-    }
-
-    function removeOverlay(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.removeOverlay(data);
-    }
-
-    function addArcOverlay(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.addArcOverlay(data);
-    }
-
-    function addCircleOverlay(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.addCircleOverlay(data);
-    }
-
-    function addPolygonOverlay(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.addPolygonOverlay(data);
-    }
-
-    function addGroundOverlay(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.addGroundOverlay(data);
-    }
-
-    function removeMarkersOverlay(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.removeMarkersOverlay(data);
-    }
-
-    function poiSearch(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.poiSearch(data);
-    }
-
-    function geocode(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.geocode(data);
-    }
-
-    function reverseGeocode(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.reverseGeocode(data);
-    }
-
-    function getCurrentLocation(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.getCurrentLocation(data);
-    }
-
-    function startLocation(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.startLocation(data);
-    }
-
-    function stopLocation(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.stopLocation(data);
-    }
-
-    function setMyLocationEnable(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.setMyLocationEnable(data);
-    }
-
-    function setUserTrackingMode(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.setUserTrackingMode(data);
-    }
-
-    function setScaleVisible(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.setScaleVisible(data);
-    }
-
-    function setMyLocationButtonVisible(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.setMyLocationButtonVisible(data);
-    }
-
-    function setZoomVisible(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.setZoomVisible(data);
-    }
-
-    function removeMarkersOverlays(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.removeMarkersOverlays(data);
-    }
-
-    function removeOverlays(){
-        var params = {
-        };
-        var data = JSON.stringify(params);
-        uexGaodeMap.removeOverlays(data);
+        uexGaodeMap.getAvailableProvinceList(data);
     }
 
 
         window.uexOnload = function(type){
             if(type == 0){
+            uexGaodeMap.cbDownload = cbDownload;
+            uexGaodeMap.cbPause = cbPause;
+            uexGaodeMap.cbRestart = cbRestart;
+            uexGaodeMap.cbStopDownload = cbStopDownload;
+            uexGaodeMap.cbGetAvailableCityList = cbGetAvailableCityList;
+            uexGaodeMap.cbGetAvailableProvinceList = cbGetAvailableProvinceList;
+            uexGaodeMap.cbGetDownloadList = cbGetDownloadList;
+            uexGaodeMap.cbGetDownloadingList = cbGetDownloadingList;
+            uexGaodeMap.cbIsUpdate = cbIsUpdate;
+            uexGaodeMap.cbDelete = cbDelete;
+            uexGaodeMap.cbGetAvailableProvinceList = cbGetAvailableProvinceList;
+            uexGaodeMap.onDownload = onDownload;
 
             }
         }
+    function cbDownload(info){
+        alert(info);
+    }
+
+    function cbPause(info){
+        alert(info);
+    }
+
+    function cbRestart(info){
+        alert(info);
+    }
+
+    function cbStopDownload(info){
+        alert(info);
+    }
+
+    function cbGetAvailableCityList(info){
+        alert(info);
+    }
+
+    function cbGetAvailableProvinceList(info){
+        alert(info);
+    }
+
+    function cbGetDownloadList(info){
+        alert(info);
+    }
+
+    function cbGetDownloadingList(info){
+        alert(info);
+    }
+
+    function cbIsUpdate(info){
+        alert(info);
+    }
+
+    function cbDelete(info){
+        alert(info);
+    }
+
+    function cbGetAvailableProvinceList(info){
+        alert(info);
+    }
+
+    function onDownload(info){
+        alert(info);
+    }
+
 
     </script>
 </head>
@@ -294,83 +158,27 @@
 <div class="tit">uexGaodeMap</div>
 <div class="conbor">
     <div class="consj">
-            <input class='btn' type='button' value='open' onclick='open()'>
+            <input class='btn' type='button' value='download' onclick='download()'>
 
-            <input class='btn' type='button' value='close' onclick='close()'>
+            <input class='btn' type='button' value='pause' onclick='pause()'>
 
-            <input class='btn' type='button' value='setMapType' onclick='setMapType()'>
+            <input class='btn' type='button' value='restart' onclick='restart()'>
 
-            <input class='btn' type='button' value='setTrafficEnabled' onclick='setTrafficEnabled()'>
+            <input class='btn' type='button' value='stopDownload' onclick='stopDownload()'>
 
-            <input class='btn' type='button' value='setCenter' onclick='setCenter()'>
+            <input class='btn' type='button' value='getAvailableCityList' onclick='getAvailableCityList()'>
 
-            <input class='btn' type='button' value='setZoomLevel' onclick='setZoomLevel()'>
+            <input class='btn' type='button' value='getAvailableProvinceList' onclick='getAvailableProvinceList()'>
 
-            <input class='btn' type='button' value='zoomIn' onclick='zoomIn()'>
+            <input class='btn' type='button' value='getDownloadList' onclick='getDownloadList()'>
 
-            <input class='btn' type='button' value='zoomOut' onclick='zoomOut()'>
+            <input class='btn' type='button' value='getDownloadingList' onclick='getDownloadingList()'>
 
-            <input class='btn' type='button' value='rotate' onclick='rotate()'>
+            <input class='btn' type='button' value='isUpdate' onclick='isUpdate()'>
 
-            <input class='btn' type='button' value='overlook' onclick='overlook()'>
+            <input class='btn' type='button' value='delete' onclick='delete()'>
 
-            <input class='btn' type='button' value='setZoomEnable' onclick='setZoomEnable()'>
-
-            <input class='btn' type='button' value='setRotateEnable' onclick='setRotateEnable()'>
-
-            <input class='btn' type='button' value='setCompassEnable' onclick='setCompassEnable()'>
-
-            <input class='btn' type='button' value='setScrollEnable' onclick='setScrollEnable()'>
-
-            <input class='btn' type='button' value='setOverlookEnable' onclick='setOverlookEnable()'>
-
-            <input class='btn' type='button' value='addMarkersOverlay' onclick='addMarkersOverlay()'>
-
-            <input class='btn' type='button' value='setMarkerOverlay' onclick='setMarkerOverlay()'>
-
-            <input class='btn' type='button' value='showBubble' onclick='showBubble()'>
-
-            <input class='btn' type='button' value='hideBubble' onclick='hideBubble()'>
-
-            <input class='btn' type='button' value='addPolylineOverlay' onclick='addPolylineOverlay()'>
-
-            <input class='btn' type='button' value='removeOverlay' onclick='removeOverlay()'>
-
-            <input class='btn' type='button' value='addArcOverlay' onclick='addArcOverlay()'>
-
-            <input class='btn' type='button' value='addCircleOverlay' onclick='addCircleOverlay()'>
-
-            <input class='btn' type='button' value='addPolygonOverlay' onclick='addPolygonOverlay()'>
-
-            <input class='btn' type='button' value='addGroundOverlay' onclick='addGroundOverlay()'>
-
-            <input class='btn' type='button' value='removeMarkersOverlay' onclick='removeMarkersOverlay()'>
-
-            <input class='btn' type='button' value='poiSearch' onclick='poiSearch()'>
-
-            <input class='btn' type='button' value='geocode' onclick='geocode()'>
-
-            <input class='btn' type='button' value='reverseGeocode' onclick='reverseGeocode()'>
-
-            <input class='btn' type='button' value='getCurrentLocation' onclick='getCurrentLocation()'>
-
-            <input class='btn' type='button' value='startLocation' onclick='startLocation()'>
-
-            <input class='btn' type='button' value='stopLocation' onclick='stopLocation()'>
-
-            <input class='btn' type='button' value='setMyLocationEnable' onclick='setMyLocationEnable()'>
-
-            <input class='btn' type='button' value='setUserTrackingMode' onclick='setUserTrackingMode()'>
-
-            <input class='btn' type='button' value='setScaleVisible' onclick='setScaleVisible()'>
-
-            <input class='btn' type='button' value='setMyLocationButtonVisible' onclick='setMyLocationButtonVisible()'>
-
-            <input class='btn' type='button' value='setZoomVisible' onclick='setZoomVisible()'>
-
-            <input class='btn' type='button' value='removeMarkersOverlays' onclick='removeMarkersOverlays()'>
-
-            <input class='btn' type='button' value='removeOverlays' onclick='removeOverlays()'>
+            <input class='btn' type='button' value='getAvailableProvinceList' onclick='getAvailableProvinceList()'>
 
 
     </div>

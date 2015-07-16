@@ -93,8 +93,9 @@ public class JsConst {
     public static final int SUCCESS = 0;
 
     public static final int ERROR_WRONG_CITY_NAME = -1;
-    public static final int ERROR_UNKNOWN = -2;
-    public static final int ERROR_IS_EXIST = -3;
+    public static final int ERROR_IS_EXIST = -2;
+    public static final int ERROR_IS_DOWNLOAD = -3;
+    public static final int ERROR_UNKNOWN = -4;
     public static final String ON_DOWNLOAD = "uexGaodeMap.onDownload";
     public static final String CALLBACK_DELETE = "uexGaodeMap.cbDelete";
     public static final int FAILED = 1;
@@ -107,10 +108,10 @@ public class JsConst {
     public static final String TAG_PROVINCE = "province";
     public static final String CALLBACK_GET_DOWNLOAD_LIST = "uexGaodeMap.cbGetDownloadList";
     public static final String CALLBACK_GET_DOWNLOADING_LIST = "uexGaodeMap.cbGetDownloadingList";
-    public static final int ERROR_IS_DOWNLOAD = -4;
     public static final int MSG_DOWNLOAD_INIT_START = 0;
 
     public static final int MSG_DOWNLOAD_CHANGE_STATUS = 1;
     public static final int MSG_DOWNLOAD_SUCCESS = 2;
     public static final int MSG_DOWNLOAD_ERROR = 3;
+    public static final String CUSTOM_BUBBLE = "customBubble";
 }

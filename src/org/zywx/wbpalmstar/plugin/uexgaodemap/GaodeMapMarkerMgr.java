@@ -19,13 +19,14 @@ import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
-import org.zywx.wbpalmstar.base.ACEImageLoader;
 import org.zywx.wbpalmstar.base.cache.ImageLoadTask;
 import org.zywx.wbpalmstar.base.cache.ImageLoadTask$ImageLoadTaskCallback;
 import org.zywx.wbpalmstar.base.cache.ImageLoaderManager;
+import org.zywx.wbpalmstar.plugin.uexgaodemap.VO.BubbleLayoutBaseVO;
+import org.zywx.wbpalmstar.plugin.uexgaodemap.VO.CustomBubbleVO;
 import org.zywx.wbpalmstar.plugin.uexgaodemap.bean.MarkerBean;
+import org.zywx.wbpalmstar.plugin.uexgaodemap.bubblelayout.CustomBubbleMarkerLayout;
 import org.zywx.wbpalmstar.plugin.uexgaodemap.util.GaodeUtils;
 import org.zywx.wbpalmstar.plugin.uexgaodemap.util.OnCallBackListener;
 
@@ -40,6 +41,8 @@ public class GaodeMapMarkerMgr extends GaodeMapBaseMgr implements OnMarkerClickL
     private static final int MSG_ADD_MARK = 0;
     private static final String TAG_ID = "id";
     private HashMap<String, Marker> mMarkers = new HashMap<String, Marker>();
+    private HashMap<String, InfoWindowAdapter> mLayouts = new
+            HashMap<String, InfoWindowAdapter>();
     private ImageLoaderManager manager;
     private List<LatLng> mOverlays;
     private BaseHandler mHandler;
@@ -61,12 +64,26 @@ public class GaodeMapMarkerMgr extends GaodeMapBaseMgr implements OnMarkerClickL
             final MarkerBean bean = list.get(i);
             final MarkerOptions option = new MarkerOptions();
             option.position(bean.getPosition());
-            if(bean.isHasBubble()){
-                if (!TextUtils.isEmpty(bean.getTitle())){
-                    option.title(bean.getTitle());
+            if (bean.getCustomBubble() != null){
+                CustomBubbleVO data = bean.getCustomBubble();
+                switch (data.getType()){
+                    case 1:
+                    default:
+                        BubbleLayoutBaseVO item = data.getData();
+                        CustomBubbleMarkerLayout layout = new
+                                CustomBubbleMarkerLayout(mContext, item);
+                        mLayouts.put(bean.getId(), layout);
+                        option.title(item.getTitleContent());
+                        break;
                 }
-                if (!TextUtils.isEmpty(bean.getSubTitle())){
-                    option.snippet(bean.getSubTitle());
+            }else{
+                if(bean.isHasBubble()){
+                    if (!TextUtils.isEmpty(bean.getTitle())){
+                        option.title(bean.getTitle());
+                    }
+                    if (!TextUtils.isEmpty(bean.getSubTitle())){
+                        option.snippet(bean.getSubTitle());
+                    }
                 }
             }
             if (!TextUtils.isEmpty(bean.getIcon())){
@@ -147,6 +164,10 @@ public class GaodeMapMarkerMgr extends GaodeMapBaseMgr implements OnMarkerClickL
         String id = getMarkerId(marker.getId());
         if (mListener != null){
             mListener.onMarkerClicked(id);
+        }
+        boolean isShowInfo = marker.isInfoWindowShown();
+        if (!isShowInfo){
+            map.setInfoWindowAdapter(mLayouts.get(id));
         }
         return false;
     }

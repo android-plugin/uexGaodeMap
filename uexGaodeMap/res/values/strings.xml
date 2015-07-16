@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
     <!-- plugin_uexGaodeMap -->
-    <string name="plugin_uexgaodemap_wrong_city_name">城市名称或城市编码错误！</string>
+    <string name="plugin_uexgaodemap_wrong_city_name">城市或省名称错误！</string>
     <string name="plugin_uexgaodemap_unknown">下载失败，请检查网络设置，或稍后再试！</string>
     <string name="plugin_uexgaodemap_is_exist">已经存在列表中！</string>
     <string name="plugin_uexgaodemap_is_download">已经下载完成，请到已下载列表查看！</string>

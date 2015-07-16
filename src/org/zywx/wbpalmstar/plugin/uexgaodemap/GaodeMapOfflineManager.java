@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.amap.api.maps.AMapException;
 import com.amap.api.maps.offlinemap.OfflineMapCity;
@@ -13,6 +12,7 @@ import com.amap.api.maps.offlinemap.OfflineMapManager;
 import com.amap.api.maps.offlinemap.OfflineMapProvince;
 import com.amap.api.maps.offlinemap.OfflineMapStatus;
 
+import org.zywx.wbpalmstar.engine.DataHelper;
 import org.zywx.wbpalmstar.engine.universalex.EUExUtil;
 import org.zywx.wbpalmstar.plugin.uexgaodemap.VO.AvailableCityVO;
 import org.zywx.wbpalmstar.plugin.uexgaodemap.VO.AvailableProvinceVO;
@@ -54,7 +54,6 @@ public class GaodeMapOfflineManager implements OfflineMapManager.OfflineMapDownl
         this.mAvailableList = new ArrayList<DownloadItemVO>();
         this.mHandler = new DownloadHandler(Looper.getMainLooper());
         getAvailableList();
-        Log.i("djf", "mAvailableList:size=" + mAvailableList.size());
         mDownloadingList = SharedPreferencesUtils.getLocalDownloadingList(mContext);
     }
 
@@ -99,6 +98,9 @@ public class GaodeMapOfflineManager implements OfflineMapManager.OfflineMapDownl
         }else if(isDownload(downloadVO.getName()) && !isNeedUpdate(downloadVO)){
             data.setErrorCode(JsConst.ERROR_IS_DOWNLOAD);
             data.setErrorStr(EUExUtil.getString("plugin_uexgaodemap_is_download"));
+        }else if(!isValidCityName(downloadVO.getName())){
+            data.setErrorCode(JsConst.ERROR_WRONG_CITY_NAME);
+            data.setErrorStr(EUExUtil.getString("plugin_uexgaodemap_wrong_city_name"));
         }else {
             mDownloadingList.add(downloadVO);
             SharedPreferencesUtils.saveLocalDownloadingList(mContext, mDownloadingList);
@@ -110,6 +112,17 @@ public class GaodeMapOfflineManager implements OfflineMapManager.OfflineMapDownl
         if (mListener != null){
             mListener.cbDownload(data);
         }
+    }
+
+    private boolean isValidCityName(String name) {
+        boolean isValid;
+        String allCity = DataHelper.gson.toJson(mAvailableList);
+        if (TextUtils.isEmpty(allCity)){
+            isValid = true;
+        }else {
+            isValid = allCity.contains(name);
+        }
+        return isValid;
     }
 
     @Override
@@ -141,12 +154,27 @@ public class GaodeMapOfflineManager implements OfflineMapManager.OfflineMapDownl
         if (offlineMapManager == null){
             offlineMapManager = new OfflineMapManager(mContext, this);
         }
+        if (list == null){
+            if (isDownloading){
+                offlineMapManager.stop();
+            }
+            List<String> allList = new ArrayList<String>();
+            if (mDownloadingList != null){
+                for (int i = 0; i < mDownloadingList.size(); i++){
+                    allList.add(mDownloadingList.get(i).getName());
+                }
+            }
+            if (mDownloadList != null){
+                for (int i = 0; i < mDownloadList.size(); i++){
+                    allList.add(mDownloadList.get(i).getName());
+                }
+            }
+            list = allList;
+        }
         if (list != null && list.size() > 0){
             for (int i = 0; i < list.size(); i++){
                 delete(list.get(i));
             }
-        }else{
-
         }
     }
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.webkit.URLUtil;
 
 import com.amap.api.maps.model.LatLng;
@@ -17,8 +18,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.zywx.wbpalmstar.base.BUtility;
+import org.zywx.wbpalmstar.engine.DataHelper;
 import org.zywx.wbpalmstar.engine.EBrowserView;
 import org.zywx.wbpalmstar.plugin.uexgaodemap.JsConst;
+import org.zywx.wbpalmstar.plugin.uexgaodemap.VO.CustomBubbleVO;
 import org.zywx.wbpalmstar.plugin.uexgaodemap.bean.MarkerBean;
 
 import java.io.ByteArrayOutputStream;
@@ -156,31 +159,38 @@ public class GaodeUtils {
                         ebrw.getCurrentWidget().m_wgtType);
                 bean.setIcon(path);
             }
-            if (object.has(JsConst.BUBBLE)){
-                try {
-                    JSONObject bubbleObject = object.getJSONObject(JsConst.BUBBLE);
-                    String title = bubbleObject.getString(JsConst.TITLE);
-                    bean.setTitle(title);
-                    if (bubbleObject.has(JsConst.BGIMG)){
-                        String bgImg = bubbleObject.getString(JsConst.BGIMG);
-                        bean.setBgImg(bgImg);
+            if (object.has(JsConst.CUSTOM_BUBBLE)){
+                String data = object.getString(JsConst.CUSTOM_BUBBLE);
+                CustomBubbleVO dataVO = DataHelper.gson.fromJson(data, CustomBubbleVO.class);
+                if (dataVO != null){
+                    if (!TextUtils.isEmpty(dataVO.getData().getBgImg())){
+                        String path = BUtility.makeRealPath(
+                                BUtility.makeUrl(ebrw.getCurrentUrl(), dataVO.getData().getBgImg()),
+                                ebrw.getCurrentWidget().m_widgetPath,
+                                ebrw.getCurrentWidget().m_wgtType);
+                        dataVO.getData().setBgImg(path);
                     }
-                    if (bubbleObject.has(JsConst.SUBTITLE)){
-                        String subTitle = bubbleObject.getString(JsConst.SUBTITLE);
-                        bean.setSubTitle(subTitle);
+                    bean.setCustomBubble(dataVO);
+                }
+            }else{
+                if (object.has(JsConst.BUBBLE)){
+                    try {
+                        JSONObject bubbleObject = object.getJSONObject(JsConst.BUBBLE);
+                        String title = bubbleObject.getString(JsConst.TITLE);
+                        bean.setTitle(title);
+                        if (bubbleObject.has(JsConst.BGIMG)){
+                            String bgImg = bubbleObject.getString(JsConst.BGIMG);
+                            bean.setBgImg(bgImg);
+                        }
+                        if (bubbleObject.has(JsConst.SUBTITLE)){
+                            String subTitle = bubbleObject.getString(JsConst.SUBTITLE);
+                            bean.setSubTitle(subTitle);
+                        }
+                        bean.setHasBubble(true);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        bean.setHasBubble(false);
                     }
-                    if (bubbleObject.has(JsConst.OFFSETX)){
-                        float offsetX = Float.valueOf(bubbleObject.getString(JsConst.OFFSETX));
-                        bean.setOffsetX(offsetX);
-                    }
-                    if (bubbleObject.has(JsConst.OFFSETY)){
-                        float offsetY = Float.valueOf(bubbleObject.getString(JsConst.OFFSETY));
-                        bean.setOffsetY(offsetY);
-                    }
-                    bean.setHasBubble(true);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    bean.setHasBubble(false);
                 }
             }
         } catch (JSONException e) {

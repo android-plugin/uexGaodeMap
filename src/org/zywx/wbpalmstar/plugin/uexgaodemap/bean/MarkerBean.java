@@ -2,6 +2,8 @@ package org.zywx.wbpalmstar.plugin.uexgaodemap.bean;
 
 import com.amap.api.maps.model.LatLng;
 
+import org.zywx.wbpalmstar.plugin.uexgaodemap.VO.CustomBubbleVO;
+
 public class MarkerBean extends BaseBean{
     private String subTitle = null;
     private LatLng position = null;
@@ -9,8 +11,7 @@ public class MarkerBean extends BaseBean{
     private String icon = null;
     private String bgImg = null;
     private boolean hasBubble;
-    private float offsetX;
-    private float offsetY;
+    private CustomBubbleVO customBubble;
 
     public String getSubTitle() {
         return subTitle;
@@ -60,19 +61,11 @@ public class MarkerBean extends BaseBean{
         this.hasBubble = hasBubble;
     }
 
-    public float getOffsetX() {
-        return offsetX;
+    public CustomBubbleVO getCustomBubble() {
+        return customBubble;
     }
 
-    public void setOffsetX(float offsetX) {
-        this.offsetX = offsetX;
-    }
-
-    public float getOffsetY() {
-        return offsetY;
-    }
-
-    public void setOffsetY(float offsetY) {
-        this.offsetY = offsetY;
+    public void setCustomBubble(CustomBubbleVO customBubble) {
+        this.customBubble = customBubble;
     }
 }

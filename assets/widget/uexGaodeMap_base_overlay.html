@@ -73,6 +73,11 @@
         }
         function onMapLoadedListener(){
             uexWindow.toast(0,5,"地图加载完成",1000);
+            var params = {
+                level:16
+            };
+            var data = JSON.stringify(params);
+            uexGaodeMap.setZoomLevel(data);
         }
         function showBubble(id){
             var params = {
@@ -87,7 +92,7 @@
             function closeMap(){
                 uexGaodeMap.close();
             }
-            
+
             function openmap(){
                 var divTop = document.getElementById("topDiv").offsetTop + document.getElementById("topDiv").offsetHeight + 60;
                 var w = screen.availWidth-20;
@@ -130,9 +135,22 @@
                         longitude:114.402965,
                         latitude:30.475845,
                         icon:"res://mark.png",
-                        bubble:{
-                            title:"title1",
-                            subTitle:"subTitle1"
+                        customBubble:{
+                            type:1,
+                            data:{
+                                width:500,//(必选)气泡宽度
+                                bgImg:"res://bubble.9.png",
+                                bgColor:"#dddddd",//(可选)背景色
+                                shadowOffsetX:100,//(可选)x轴偏移量,向右为正,单位:px
+                                shadowOffsetY:100,//(可选)y轴偏移量,向下为正,单位:px
+                                shadowColor:"#ffffff",//(可选)阴影颜色
+                                titleContent:"title1",//(必选)标题内容
+                                titleFontSize:25,//(必选)标题字号
+                                titleColor:"#000000",//(必选)标题颜色
+                                textContent:"subTitle1-1\nsubTitle1-2\nsubTitle1-3\nsubTitle1-4",//(必选)文本内容
+                                textFontSize:15,//(必选)文本字号
+                                textColor:"#ff0000"//(必选)文本颜色
+                            }
                         }
                     },
                     {
