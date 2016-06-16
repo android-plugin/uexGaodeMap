@@ -80,6 +80,9 @@
                 uexGaodeMap.onMapLongClickListener = function(json){
                      alert("onMapLongClickListener:" + json);
                 }
+                uexGaodeMap.cbGetCenter = function(json) {
+                    alert("----cbGetCenter----\n: "+json);
+               }
                 uexGaodeMap.onMapLoadedListener = onMapLoadedListener;
                 uexWindow.setReportKey(0,1);
                 uexWindow.onKeyPressed = function(keyCode){
@@ -139,7 +142,8 @@
         <input type="button" value="设置类型" onclick="setType();">
         <input type="button" value="开启实时交通图" onclick="openTrafficEnabled();">
         <input type="button" value="关闭实时交通图" onclick="closeTrafficEnabled();">
-            <input type="button" value="设置中心点" onclick="setCenter();">
+        <input type="button" value="设置中心点" onclick="setCenter();">
+        <input type="button" value="得到中心点" onclick="uexGaodeMap.getCenter();">
         <input type="button" value="关闭" onclick="closeMap();">
             <!--<input type="button" value="pop" onclick="openPop();">-->
         <p></p><br>

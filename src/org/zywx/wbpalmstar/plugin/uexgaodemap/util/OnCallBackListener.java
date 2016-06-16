@@ -51,5 +51,7 @@ public interface OnCallBackListener extends Serializable{
     public void cbHideCustomButtons(CustomButtonDisplayResultVO data);
 
     public void onButtonClick(String id, EUExGaodeMap gaodeMap);
+    
+    public void cbGetCenter(LatLng latLng);
 
 }

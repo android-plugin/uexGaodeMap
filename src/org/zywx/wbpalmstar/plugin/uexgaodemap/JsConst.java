@@ -121,4 +121,6 @@ public class JsConst {
     public static final String CALLBACK_SHOW_CUSTOM_BUTTONS = "uexGaodeMap.cbShowCustomButtons";
     public static final String CALLBACK_HIDE_CUSTOM_BUTTONS = "uexGaodeMap.cbHideCustomButtons";
     public static final String ON_BUTTON_CLICK = "uexGaodeMap.onCustomButtonClick";
+    public static final String CB_GET_CENTER = "uexGaodeMap.cbGetCenter";
+    
 }
