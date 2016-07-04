@@ -10,76 +10,68 @@ import com.amap.api.maps.LocationSource;
 
 import org.zywx.wbpalmstar.plugin.uexgaodemap.util.OnCallBackListener;
 
-public class GaodeMapLocationManager implements LocationSource{
+public class GaodeMapLocationManager implements LocationSource {
 
-    private LocationSource.OnLocationChangedListener mLocationChangedListener;
-    private GaodeLocationListener mLocationListener;
-    public OnCallBackListener mListener;
-    private static final String TAG = "LocationMgr";
+	private LocationSource.OnLocationChangedListener mLocationChangedListener;
+	@SuppressWarnings("unused")
+	private GaodeLocationListener mLocationListener;
+	public OnCallBackListener mListener;
+	private static final String TAG = "LocationMgr";
 
-    @Override
-    public void activate(OnLocationChangedListener onLocationChangedListener) {
+	@Override
+	public void activate(OnLocationChangedListener onLocationChangedListener) {
 
-    }
+	}
 
-    @Override
-    public void deactivate() {
+	@Override
+	public void deactivate() {
 
-    }
+	}
 
-    private class GaodeLocationListener implements AMapLocationListener {
-        int type = JsConst.INVALID;
+	private class GaodeLocationListener implements AMapLocationListener {
+		int type = JsConst.INVALID;
 
-        public int getType() {
-            return type;
-        }
+		@Override
+		public void onLocationChanged(AMapLocation aMapLocation) {
+			Log.i(TAG, "onLocationChanged");
+			if (aMapLocation != null && aMapLocation.getAMapException().getErrorCode() == 0) {
+				switch (type) {
+				case JsConst.SHOW_LOCATION:
+				case JsConst.CONTINUED:
+					if (mLocationChangedListener != null) {
+						mLocationChangedListener.onLocationChanged(aMapLocation);// 显示系统小蓝点
+					}
+					if (mListener != null) {
+						mListener.onReceiveLocation(aMapLocation);
+					}
+					break;
+				case JsConst.GET_LOCATION:
+					if (mListener != null) {
+						mListener.cbGetCurrentLocation(aMapLocation);
+					}
+					break;
+				}
+			}
+		}
 
-        public void setType(int type){
-            this.type = type;
-        }
+		@Override
+		public void onLocationChanged(Location location) {
 
+		}
 
-        @Override
-        public void onLocationChanged(AMapLocation aMapLocation) {
-            Log.i(TAG, "onLocationChanged");
-            if (aMapLocation != null && aMapLocation.getAMapException().getErrorCode() == 0){
-                switch (type){
-                    case JsConst.SHOW_LOCATION:
-                    case JsConst.CONTINUED:
-                        if (mLocationChangedListener != null) {
-                            mLocationChangedListener.onLocationChanged(aMapLocation);// 显示系统小蓝点
-                        }
-                        if (mListener != null){
-                            mListener.onReceiveLocation(aMapLocation);
-                        }
-                        break;
-                    case JsConst.GET_LOCATION:
-                        if (mListener != null){
-                            mListener.cbGetCurrentLocation(aMapLocation);
-                        }
-                        break;
-                }
-            }
-        }
+		@Override
+		public void onStatusChanged(String provider, int status, Bundle extras) {
 
-        @Override
-        public void onLocationChanged(Location location) {
+		}
 
-        }
+		@Override
+		public void onProviderEnabled(String provider) {
 
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
+		}
 
-        }
+		@Override
+		public void onProviderDisabled(String provider) {
 
-        @Override
-        public void onProviderEnabled(String provider) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-
-        }
-    }
+		}
+	}
 }

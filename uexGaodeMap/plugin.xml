@@ -8,6 +8,7 @@
         <method name="setMapType" />
         <method name="setTrafficEnabled" />
         <method name="setCenter" />
+        <method name="getCenter" />
         <method name="setZoomLevel" />
         <method name="zoomIn" />
         <method name="zoomOut" />
@@ -37,6 +38,7 @@
         <method name="stopLocation" />
         <method name="setMyLocationEnable" />
         <method name="setUserTrackingMode" />
+
         <method name = "setScaleVisible"/>
         <method name = "setMyLocationButtonVisible"/>
         <method name = "setZoomVisible"/>
@@ -44,6 +46,7 @@
         <method name="removeMarkersOverlays" />
         <method name="removeOverlays"/>
 
+        <method name="setMarkerVisibleBounds"/>
         <method name="clear"/>
 
         <method name="download"/>
@@ -60,5 +63,6 @@
         <method name="deleteCustomButton"/>
         <method name="showCustomButtons"/>
         <method name="hideCustomButtons"/>
+
     </plugin>
 </uexplugins>
