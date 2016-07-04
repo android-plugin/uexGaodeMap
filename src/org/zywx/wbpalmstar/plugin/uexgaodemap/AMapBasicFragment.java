@@ -460,6 +460,7 @@ public class AMapBasicFragment extends BaseFragment implements OnMapLoadedListen
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public void setCustomButton(final CustomButtonVO dataVO) {
 		CustomButtonResultVO resultVO = new CustomButtonResultVO();
 		resultVO.setId(dataVO.getId());

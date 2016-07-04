@@ -199,6 +199,7 @@ public class EUExGaodeMap extends EUExBase implements OnCallBackListener {
 
 	}
 
+	@SuppressWarnings("deprecation")
 	private void openAMap(final String[] params) {
 		String json = params[0];
 		int left = 0;
@@ -287,7 +288,7 @@ public class EUExGaodeMap extends EUExBase implements OnCallBackListener {
 	private void hideMapMsg(String[] params) {
 		String json = params[0];
 		try {
-			JSONObject jsonObject = new JSONObject(json);
+			new JSONObject(json);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -310,7 +311,7 @@ public class EUExGaodeMap extends EUExBase implements OnCallBackListener {
 	private void showMapMsg(String[] params) {
 		String json = params[0];
 		try {
-			JSONObject jsonObject = new JSONObject(json);
+			new JSONObject(json);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -799,7 +800,7 @@ public class EUExGaodeMap extends EUExBase implements OnCallBackListener {
 	private void addDotOverlayMsg(String[] params) {
 		String json = params[0];
 		try {
-			JSONObject jsonObject = new JSONObject(json);
+			new JSONObject(json);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -1086,7 +1087,7 @@ public class EUExGaodeMap extends EUExBase implements OnCallBackListener {
 	private void addTextOverlayMsg(String[] params) {
 		String json = params[0];
 		try {
-			JSONObject jsonObject = new JSONObject(json);
+			new JSONObject(json);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -1252,7 +1253,7 @@ public class EUExGaodeMap extends EUExBase implements OnCallBackListener {
 	private void poiNearbySearchMsg(String[] params) {
 		String json = params[0];
 		try {
-			JSONObject jsonObject = new JSONObject(json);
+			new JSONObject(json);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -1275,7 +1276,7 @@ public class EUExGaodeMap extends EUExBase implements OnCallBackListener {
 	private void poiBoundSearchMsg(String[] params) {
 		String json = params[0];
 		try {
-			JSONObject jsonObject = new JSONObject(json);
+			new JSONObject(json);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -1298,7 +1299,7 @@ public class EUExGaodeMap extends EUExBase implements OnCallBackListener {
 	private void busLineSearchMsg(String[] params) {
 		String json = params[0];
 		try {
-			JSONObject jsonObject = new JSONObject(json);
+			new JSONObject(json);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -1327,7 +1328,7 @@ public class EUExGaodeMap extends EUExBase implements OnCallBackListener {
 	private void removeBusLineMsg(String[] params) {
 		String json = params[0];
 		try {
-			JSONObject jsonObject = new JSONObject(json);
+			new JSONObject(json);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -1350,7 +1351,7 @@ public class EUExGaodeMap extends EUExBase implements OnCallBackListener {
 	private void preBusLineNodeMsg(String[] params) {
 		String json = params[0];
 		try {
-			JSONObject jsonObject = new JSONObject(json);
+			new JSONObject(json);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -1373,7 +1374,7 @@ public class EUExGaodeMap extends EUExBase implements OnCallBackListener {
 	private void nextBusLineNodeMsg(String[] params) {
 		String json = params[0];
 		try {
-			JSONObject jsonObject = new JSONObject(json);
+			new JSONObject(json);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -1396,7 +1397,7 @@ public class EUExGaodeMap extends EUExBase implements OnCallBackListener {
 	private void searchRoutePlanMsg(String[] params) {
 		String json = params[0];
 		try {
-			JSONObject jsonObject = new JSONObject(json);
+			new JSONObject(json);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -1419,7 +1420,7 @@ public class EUExGaodeMap extends EUExBase implements OnCallBackListener {
 	private void removeRoutePlanMsg(String[] params) {
 		String json = params[0];
 		try {
-			JSONObject jsonObject = new JSONObject(json);
+			new JSONObject(json);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -1442,7 +1443,7 @@ public class EUExGaodeMap extends EUExBase implements OnCallBackListener {
 	private void preRouteNodeMsg(String[] params) {
 		String json = params[0];
 		try {
-			JSONObject jsonObject = new JSONObject(json);
+			new JSONObject(json);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -1465,7 +1466,7 @@ public class EUExGaodeMap extends EUExBase implements OnCallBackListener {
 	private void nextRouteNodeMsg(String[] params) {
 		String json = params[0];
 		try {
-			JSONObject jsonObject = new JSONObject(json);
+			new JSONObject(json);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -2465,6 +2466,7 @@ public class EUExGaodeMap extends EUExBase implements OnCallBackListener {
 		brw.onCallback(js);
 	}
 
+	@SuppressWarnings("unused")
 	private void addView2CurrentWindow(View child, RelativeLayout.LayoutParams parms) {
 		int l = parms.leftMargin;
 		int t = parms.topMargin;
@@ -2577,6 +2579,7 @@ public class EUExGaodeMap extends EUExBase implements OnCallBackListener {
 		callBackPluginJs(JsConst.CALLBACK_REVERSE_GEOCODE, jsonResult.toString());
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void cbPoiSearch(PoiResult result, int errorCode) {
 		ResultVO resultVO = new ResultVO<PoiItemVO>();
@@ -2592,6 +2595,7 @@ public class EUExGaodeMap extends EUExBase implements OnCallBackListener {
 		callBackPluginJs(JsConst.CALLBACK_POI_SEARCH, DataHelper.gson.toJson(resultVO));
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public void cbPoiSearchDetail(PoiItemDetail result, int errorCode) {
 		ResultVO resultVO = null;
@@ -2736,14 +2740,15 @@ public class EUExGaodeMap extends EUExBase implements OnCallBackListener {
 		return basicFragment;
 	}
 
-	private void removeAMapView(AMapBasicFragment activity) {
+	private void removeAMapView(AMapBasicFragment fragment) {
 		if (isScrollWithWeb) {
 			removeFragmentFromWebView(TAG);
 		} else {
-			removeFragmentFromWindow(activity);
+			removeFragmentFromWindow(fragment);
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private String getActivityTag() {
 		return AMapBasicFragment.TAG;
 	}
